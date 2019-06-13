@@ -24,14 +24,14 @@ int in, out;
 int s1, s2;
 int i, j, m;
 char p_array[10];
-char c, gOut;
+char c, x;
 
 int p(int s)//P操作原语
 { 
 	s--;
 	if (s < 0) {
 		process_1->state = "阻塞";
-		process_1->wait_rsn = "s < 0";
+		process_1->wait_rsn = "s";
 	}
 	else
 	{
@@ -88,8 +88,7 @@ void nop()
 
 void put()
 {
-	/*cout << "输入任意字符以继续：";
-	cin >> c;*/
+
 	cout << "按下回车以继续";
 	system("pause");
 	cout << endl;
@@ -114,9 +113,9 @@ void put()
 void get()
 {
 	Sleep(1000);
-	gOut = p_array[out];
+	x = p_array[out];
 	cout << "------------------------" << endl;
-	cout << "消费者 取出一个产品：" << gOut << endl;
+	cout << "消费者 取出一个产品：" << x << endl;
 	p_array[out] = ' ';
 	out = (out + 1) % 10;
 	int count = 0;
@@ -142,7 +141,7 @@ void showPCBs() //显示当前进程
 	cout << endl;
 }
 
-void putInPA()           //将生产者程序装入PA[]中
+void putInPA()           //存放生产者程序中的一条模拟指令执行的入口地址
 {
 	for (i = 0; i <= 3; i++)
 	{
@@ -150,7 +149,7 @@ void putInPA()           //将生产者程序装入PA[]中
 	}
 }
 
-void putInSA()               //将消费者程序装入SA[]中
+void putInSA()               //存放消费者程序中的一条模拟指令执行的入口地址
 {
 	for (i = 0; i <= 3; i++)
 	{
@@ -161,9 +160,9 @@ void putInSA()               //将消费者程序装入SA[]中
 void runPCBs() {
 	while ((producer.state == "就绪") || (consumer.state == "就绪"))
 	{
-		gOut = rand();    //gOut随机获得一个数
-		gOut = gOut % 2;   //对gOut取于
-		if (gOut == 0)      //若gOut等于零，则执行生产者进程，反之执行消费者进程
+		x = rand();    //x随机获得一个数
+		x = x % 2;   //对x取余
+		if (x == 0)      //若x等于零，则执行生产者进程，反之执行消费者进程
 		{
 			process_1 = &producer;   //process_1表示现行进程，将现行进程置为生产者进程
 			process_2 = &consumer;
@@ -184,9 +183,11 @@ void runPCBs() {
 			{
 
 			case 0:
-				s1 = p(s1); process_1->break_point = PC;
+				s1 = p(s1); 
+				process_1->break_point = PC;
 				break;
-			case 1: put();
+			case 1:
+				put();
 				process_1->state = "就绪";
 				process_1->wait_rsn = "";
 				process_1->break_point = PC;
@@ -241,7 +242,6 @@ int main() {     //主程序
 	initPCBs();
 	putInPA();
 	putInSA();
-
 	runPCBs();
 	return 0;
 }

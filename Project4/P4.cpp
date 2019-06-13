@@ -7,7 +7,7 @@
 //using namespace std;
 //int main() {
 //	int count = 1;
-//	int pid1, pid2, pid3;
+//	int pid1, pid2;
 //	cout << "father A pid:" << getpid() << endl;
 //	pid1 = fork();
 //	if (pid1 < 0)

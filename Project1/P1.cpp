@@ -12,7 +12,7 @@ struct PCB{
 	int level; //进程优先数
 	int time; //需要运行的时间
 	string state = ""; //状态R表示就绪， E表示结束
-	PCB *next;
+	PCB* next;
 };
 void initPCBs(PCB *head) {
 	PCB* p, *q;
