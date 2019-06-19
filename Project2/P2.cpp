@@ -1,4 +1,4 @@
-#include<iostream>
+ï»¿#include<iostream>
 #include<string>
 #include<vector>
 #define MEM_SIZE 128
@@ -6,13 +6,13 @@
 #define FREE 0
 using namespace std;
 
-static vector<int> existIds;  //´æ´¢ÄÚ´æÖĞ´æÔÚµÄ×÷ÒµÃû
+static vector<int> existIds;  //å­˜å‚¨å†…å­˜ä¸­å­˜åœ¨çš„ä½œä¸šå
 
 struct MNode {
-	int taskId;  //×÷ÒµÃû£¨·ÖÇøºÅ£©
-	int length;   //¿ÕÏĞÇø³¤¶È
-	int begin_address;  //ÆğÊ¼µØÖ·
-	int state;  //0±íÊ¾¿ÕÏĞ£¬ 1±íÊ¾ÒÑ·ÖÅä
+	int taskId;  //ä½œä¸šåï¼ˆåˆ†åŒºå·ï¼‰
+	int length;   //ç©ºé—²åŒºé•¿åº¦
+	int begin_address;  //èµ·å§‹åœ°å€
+	int state;  //0è¡¨ç¤ºç©ºé—²ï¼Œ 1è¡¨ç¤ºå·²åˆ†é…
 };
 struct ZoneNode {
 	ZoneNode* prior;
@@ -23,12 +23,12 @@ struct ZoneNode {
 ZoneNode* headZ;
 ZoneNode* lastZ;
 
-bool initMemZ() {        //ÄÚ´æ³õÊ¼»¯
+bool initMemZ() {        //å†…å­˜åˆå§‹åŒ–
 	headZ = new ZoneNode();
 	lastZ = new ZoneNode();
-	headZ->prior = NULL; //³õÊ¼»¯Í·½áµã
+	headZ->prior = NULL; //åˆå§‹åŒ–å¤´ç»“ç‚¹
 	headZ->next = lastZ;
-	lastZ->prior = headZ;   //³õÊ¼»¯Î²½Úµã
+	lastZ->prior = headZ;   //åˆå§‹åŒ–å°¾èŠ‚ç‚¹
 	lastZ->next = NULL;  
 	lastZ->dsp.begin_address = 0;
 	lastZ->dsp.length = MEM_SIZE;
@@ -37,33 +37,33 @@ bool initMemZ() {        //ÄÚ´æ³õÊ¼»¯
 	return true;
 }
 
-bool firstFitAlloc(int taskid, int nmem);   //ÉùÃ÷Ê×´ÎÊÊÓ¦Ëã·¨º¯Êı£¬·½±ã±»·ÖÅäº¯Êıµ÷ÓÃ
+bool firstFitAlloc(int taskid, int nmem);   //å£°æ˜é¦–æ¬¡é€‚åº”ç®—æ³•å‡½æ•°ï¼Œæ–¹ä¾¿è¢«åˆ†é…å‡½æ•°è°ƒç”¨
 
-bool allocMem() {      //ÄÚ´æ·ÖÅäº¯Êı
+bool allocMem() {      //å†…å­˜åˆ†é…å‡½æ•°
 	int tId, neededMem;
-	cout << "ÇëÊäÈë×÷ÒµÃû£¨·ÖÇøºÅ£©£º";
+	cout << "è¯·è¾“å…¥ä½œä¸šåï¼ˆåˆ†åŒºå·ï¼‰ï¼š";
 	cin >> tId;
 	if (tId <= 0) {
-		cout << "ÎŞĞ§£¡" << endl;
+		cout << "æ— æ•ˆï¼" << endl;
 		return false;
 	}
-	cout << "ÇëÊäÈëĞèÒª·ÖÅäµÄÖ÷´æ´óĞ¡£¨µ¥Î»:KB£©£º";
+	cout << "è¯·è¾“å…¥éœ€è¦åˆ†é…çš„ä¸»å­˜å¤§å°ï¼ˆå•ä½:KBï¼‰ï¼š";
 	cin >> neededMem;
 	if (neededMem <= 0) {
-		cout << "´íÎó£¡·ÖÅäµÄÄÚ´æ¿Õ¼ä±ØĞë´óÓÚ0£¬ÇëÖØÊÔ£¡" << endl;
+		cout << "é”™è¯¯ï¼åˆ†é…çš„å†…å­˜ç©ºé—´å¿…é¡»å¤§äº0ï¼Œè¯·é‡è¯•ï¼" << endl;
 		return false;
 	}
 	if (firstFitAlloc(tId, neededMem)) {
-		cout << "·ÖÅä³É¹¦£¡" << endl;
+		cout << "åˆ†é…æˆåŠŸï¼" << endl;
 		existIds.push_back(tId);
 		return true;
 	}
 	else{
-		cout << "·ÖÅäÊ§°Ü£¡" << endl;
+		cout << "åˆ†é…å¤±è´¥ï¼" << endl;
 		return false;
 	}
 }
-bool firstFitAlloc(int taskid, int nmem) {   //Ê×´ÎÊÊÓ¦Ëã·¨º¯Êı
+bool firstFitAlloc(int taskid, int nmem) {   //é¦–æ¬¡é€‚åº”ç®—æ³•å‡½æ•°
 	ZoneNode* newp, * p;
 	newp = new ZoneNode();
 	p = headZ->next;
@@ -72,13 +72,13 @@ bool firstFitAlloc(int taskid, int nmem) {   //Ê×´ÎÊÊÓ¦Ëã·¨º¯Êı
 	newp->dsp.length = nmem;
 	while (p)
 	{
-		if (p->dsp.taskId != taskid) {        //×÷ÒµÃû²»ÄÜÖØ¸´
-			if (p->dsp.length == nmem && p->dsp.state == FREE) {//¸ÕºÃÓĞ×ã¹»¿Õ¼ä¿ÉÒÔ·ÖÅä
+		if (p->dsp.taskId != taskid) {        //ä½œä¸šåä¸èƒ½é‡å¤
+			if (p->dsp.length == nmem && p->dsp.state == FREE) {//åˆšå¥½æœ‰è¶³å¤Ÿç©ºé—´å¯ä»¥åˆ†é…
 				p->dsp.state = BUSY;
 				p->dsp.taskId = taskid;
 				return true;
 			}
-			else if (p->dsp.length > nmem && p->dsp.state == FREE) {//»áÓĞÊ£Óà¿Õ¼ä
+			else if (p->dsp.length > nmem && p->dsp.state == FREE) {//ä¼šæœ‰å‰©ä½™ç©ºé—´
 				newp->prior = p->prior;
 				newp->next = p;
 				p->prior->next = newp;
@@ -91,41 +91,41 @@ bool firstFitAlloc(int taskid, int nmem) {   //Ê×´ÎÊÊÓ¦Ëã·¨º¯Êı
 			p = p->next;
 		}
 		else {
-			cout << "×÷Òµ" << taskid << "ÒÑÔÚÄÚ´æÖĞ£¡" << endl;
+			cout << "ä½œä¸š" << taskid << "å·²åœ¨å†…å­˜ä¸­ï¼" << endl;
 			return false;
 		}
 	}
-	cout << "ÄÚ´æ¿Õ¼ä²»×ã£¡" << endl;
+	cout << "å†…å­˜ç©ºé—´ä¸è¶³ï¼" << endl;
 	return false;
 }
 
-bool freeMem() {    //»ØÊÕÄÚ´æ
+bool freeMem() {    //å›æ”¶å†…å­˜
 	ZoneNode* p = headZ;
 	int taskid;
-	cout << "ÇëÊäÈëÄúÒªÊÍ·ÅµÄ·ÖÇøºÅ£º";
+	cout << "è¯·è¾“å…¥æ‚¨è¦é‡Šæ”¾çš„åˆ†åŒºå·ï¼š";
 	cin >> taskid;
 	while (p)
 	{
 		int nRet = count(existIds.begin(), existIds.end(), taskid);
-		if (nRet == 0) {                          //²»ÄÜ»ØÊÕÄÚ´æÖĞ²»´æÔÚµÄ×÷Òµ
-			cout << "×÷Òµ²»´æÔÚ£¡";
+		if (nRet == 0) {                          //ä¸èƒ½å›æ”¶å†…å­˜ä¸­ä¸å­˜åœ¨çš„ä½œä¸š
+			cout << "ä½œä¸šä¸å­˜åœ¨ï¼";
 			return false;
 		}
 		if (p->dsp.taskId == taskid)
 		{	
 			p->dsp.state = FREE;
 			p->dsp.taskId = FREE;
-			if (p->prior->dsp.state == FREE && p->prior->prior != NULL)//ÓëÇ°ÃæµÄ¿ÕÏĞ¿éºÏ²¢
+			if (p->prior->dsp.state == FREE && p->prior->prior != NULL)//ä¸å‰é¢çš„ç©ºé—²å—åˆå¹¶
 			{
 				p->prior->dsp.length += p->dsp.length;
 				p->prior->next = p->next;
 				p->next->prior = p->prior;
 				p = p->prior;
 			}
-			if (p->next->dsp.state == FREE)//ÓëºóÃæµÄ¿ÕÏĞ¿éºÏ²¢
+			if (p->next->dsp.state == FREE)//ä¸åé¢çš„ç©ºé—²å—åˆå¹¶
 			{
 				p->dsp.length += p->next->dsp.length;
-				if (p->next->next == NULL)         //·ÀÖ¹»ØÊÕ×îºóÒ»¸öÊ±³ö´í
+				if (p->next->next == NULL)         //é˜²æ­¢å›æ”¶æœ€åä¸€ä¸ªæ—¶å‡ºé”™
 				{
 					p->next = NULL;
 				}
@@ -139,16 +139,16 @@ bool freeMem() {    //»ØÊÕÄÚ´æ
 
 		p = p->next;
 	}
-	cout << "·ÖÇøºÅ£º" << taskid << " »ØÊÕ³É¹¦£¡" << endl;
+	cout << "åˆ†åŒºå·ï¼š" << taskid << " å›æ”¶æˆåŠŸï¼" << endl;
 	return true;
 }
 
-bool showMem() {   //ÏÔÊ¾ÄÚ´æ·ÖÅä×´¿ö
+bool showMem() {   //æ˜¾ç¤ºå†…å­˜åˆ†é…çŠ¶å†µ
 	ZoneNode* p = headZ->next;
 	cout << "**************" << endl;
-	cout << "*Ö÷´æ·ÖÅäÇé¿ö*" << endl;
+	cout << "*ä¸»å­˜åˆ†é…æƒ…å†µ*" << endl;
 	cout << "**************" << endl;
-	cout << "\t" << "id£º" << "\t" << "begin_addr£º" << "\t" << "size£º" << "\t" << "state£º" << endl;
+	cout << "\t" << "idï¼š" << "\t" << "begin_addrï¼š" << "\t" << "sizeï¼š" << "\t" << "stateï¼š" << endl;
 	while (p)
 	{
 		if (p->dsp.taskId == FREE)
@@ -160,9 +160,9 @@ bool showMem() {   //ÏÔÊ¾ÄÚ´æ·ÖÅä×´¿ö
 		cout  << p->dsp.length << " KB" << "\t";
 		
 		if (p->dsp.state == FREE)
-			cout << "¿Õ ÏĞ" << endl;
+			cout << "ç©º é—²" << endl;
 		else
-			cout << "ÒÑ·ÖÅä" << endl;
+			cout << "å·²åˆ†é…" << endl;
 		p = p->next;
 	}
 	return true;
@@ -171,15 +171,15 @@ bool showMem() {   //ÏÔÊ¾ÄÚ´æ·ÖÅä×´¿ö
 int main() {
 	int choice;
 	if (initMemZ()) 
-		cout << "**³õÊ¼»¯³É¹¦**" << endl;
+		cout << "**åˆå§‹åŒ–æˆåŠŸ**" << endl;
 	cout << endl;
-	cout << "Ê×´ÎÊÊÓ¦Ëã·¨Ä£Äâ£º" << endl;
+	cout << "é¦–æ¬¡é€‚åº”ç®—æ³•æ¨¡æ‹Ÿï¼š" << endl;
 	while (true)
 	{
 		cout << "-------------------------------------------------------" << endl;
-		cout << "1. ·ÖÅäÄÚ´æ" <<  "\t" <<"2. »ØÊÕÄÚ´æ" << "\t" << "3. ²é¿´·ÖÅä" << "\t" << "0. ÍË³ö" << endl;
+		cout << "1. åˆ†é…å†…å­˜" <<  "\t" <<"2. å›æ”¶å†…å­˜" << "\t" << "3. æŸ¥çœ‹åˆ†é…" << "\t" << "0. é€€å‡º" << endl;
 		cout << endl;
-		cout << "ÇëÊäÈëÄúµÄ²Ù×÷£º";
+		cout << "è¯·è¾“å…¥æ‚¨çš„æ“ä½œï¼š";
 		cin >> choice;
 		cout << "-------------------------------------------------------" << endl;
 		switch (choice) {
@@ -187,11 +187,11 @@ int main() {
 			cout << "-------------------------------------------------------" << endl;
 			if (allocMem()) {
 				cout << endl;
-				cout << "²Ù×÷³É¹¦£¡" << endl;
+				cout << "æ“ä½œæˆåŠŸï¼" << endl;
 			}
 			else
 			{
-				cout << "²Ù×÷Ê§°Ü£¡" << endl;
+				cout << "æ“ä½œå¤±è´¥ï¼" << endl;
 			}
 			cout << "-------------------------------------------------------" << endl;
 			break;
@@ -199,11 +199,11 @@ int main() {
 			cout << "-------------------------------------------------------" << endl;
 			if (freeMem()) {
 				cout << endl;
-				cout << "²Ù×÷³É¹¦£¡" << endl;
+				cout << "æ“ä½œæˆåŠŸï¼" << endl;
 			}
 			else
 			{
-				cout << "²Ù×÷Ê§°Ü£¡" << endl;
+				cout << "æ“ä½œå¤±è´¥ï¼" << endl;
 			}
 			cout << "-------------------------------------------------------" << endl;
 			break;
@@ -211,11 +211,11 @@ int main() {
 			cout << "-------------------------------------------------------" << endl;
 			if (showMem()) {
 				cout << endl;
-				cout << "²Ù×÷³É¹¦£¡" << endl;
+				cout << "æ“ä½œæˆåŠŸï¼" << endl;
 			}
 			else
 			{
-				cout << "²Ù×÷Ê§°Ü£¡" << endl;
+				cout << "æ“ä½œå¤±è´¥ï¼" << endl;
 			}
 			cout << "-------------------------------------------------------" << endl;
 			break;
@@ -224,7 +224,7 @@ int main() {
 			break;
 		default:
 			cout << "-------------------------------------------------------" << endl;
-			cout << "ÎŞĞ§£¡£¡";
+			cout << "æ— æ•ˆï¼ï¼";
 			cout << "-------------------------------------------------------" << endl;
 			break;
 		}
@@ -232,13 +232,13 @@ int main() {
 	return 0;
 }
 /*
-¿É±ä·ÖÇø¹ÜÀí·½Ê½ÏÂ²ÉÓÃÊ×´ÎÊÊÓ¦Ëã·¨ÊµÏÖÖ÷´æ·ÖÅäºÍ»ØÊÕ
-[ÌáÊ¾]£º
-(1)	¿É±ä·ÖÇø·½Ê½ÊÇ°´×÷ÒµĞèÒªµÄÖ÷´æ¿Õ¼ä´óĞ¡À´·Ö¸î·ÖÇøµÄ¡£µ±Òª×°ÈëÒ»¸ö×÷ÒµÊ±£¬¸ù¾İ×÷ÒµĞèÒªµÄÖ÷´æÈİÁ¿²é¿´ÊÇ·ñÓĞ×ã¹»µÄ¿ÕÏĞ¿Õ¼ä£¬ÈôÓĞ£¬Ôò°´Ğè·ÖÅä£¬·ñÔò£¬×÷ÒµÎŞ·¨×°Èë¡£¼Ù¶¨ÄÚ´æ´óĞ¡Îª128K£¬¿ÕÏĞÇøËµÃ÷±í¸ñÊ½Îª£º
-¡¤·ÖÇøºÅ¡ª¡ª±íÊ¾ÊÇµÚ¼¸¸ö¿ÕÏĞ·ÖÇø£»
-¡¤ÆğÊ¼µØÖ·¡ª¡ªÖ¸³ö¿ÕÏĞÇøµÄÆğÊ¼µØÖ·£»
-¡¤³¤¶È¡ª¡ªÒ»¸öÁ¬Ğø¿ÕÏĞÇøµÄ³¤¶È£»
-(2)	²ÉÓÃÊ×´ÎÊÊÓ¦Ëã·¨·ÖÅä»ØÊÕÄÚ´æ¿Õ¼ä¡£ÔËĞĞÊ±£¬ÊäÈëÒ»ÏµÁĞ·ÖÅäÇëÇóºÍ»ØÊÕÇëÇó¡£
-ÒªÇóÄÜ½ÓÊÜÀ´×Ô¼üÅÌµÄ¿Õ¼äÉêÇë¼°ÊÍ·ÅÇëÇó£¬ÄÜÏÔÊ¾·ÖÇø·ÖÅä¼°»ØÊÕºóµÄÄÚ´æ²¼¾ÖÇé¿ö¡£
+å¯å˜åˆ†åŒºç®¡ç†æ–¹å¼ä¸‹é‡‡ç”¨é¦–æ¬¡é€‚åº”ç®—æ³•å®ç°ä¸»å­˜åˆ†é…å’Œå›æ”¶
+[æç¤º]ï¼š
+(1)	å¯å˜åˆ†åŒºæ–¹å¼æ˜¯æŒ‰ä½œä¸šéœ€è¦çš„ä¸»å­˜ç©ºé—´å¤§å°æ¥åˆ†å‰²åˆ†åŒºçš„ã€‚å½“è¦è£…å…¥ä¸€ä¸ªä½œä¸šæ—¶ï¼Œæ ¹æ®ä½œä¸šéœ€è¦çš„ä¸»å­˜å®¹é‡æŸ¥çœ‹æ˜¯å¦æœ‰è¶³å¤Ÿçš„ç©ºé—²ç©ºé—´ï¼Œè‹¥æœ‰ï¼Œåˆ™æŒ‰éœ€åˆ†é…ï¼Œå¦åˆ™ï¼Œä½œä¸šæ— æ³•è£…å…¥ã€‚å‡å®šå†…å­˜å¤§å°ä¸º128Kï¼Œç©ºé—²åŒºè¯´æ˜è¡¨æ ¼å¼ä¸ºï¼š
+Â·åˆ†åŒºå·â€”â€”è¡¨ç¤ºæ˜¯ç¬¬å‡ ä¸ªç©ºé—²åˆ†åŒºï¼›
+Â·èµ·å§‹åœ°å€â€”â€”æŒ‡å‡ºç©ºé—²åŒºçš„èµ·å§‹åœ°å€ï¼›
+Â·é•¿åº¦â€”â€”ä¸€ä¸ªè¿ç»­ç©ºé—²åŒºçš„é•¿åº¦ï¼›
+(2)	é‡‡ç”¨é¦–æ¬¡é€‚åº”ç®—æ³•åˆ†é…å›æ”¶å†…å­˜ç©ºé—´ã€‚è¿è¡Œæ—¶ï¼Œè¾“å…¥ä¸€ç³»åˆ—åˆ†é…è¯·æ±‚å’Œå›æ”¶è¯·æ±‚ã€‚
+è¦æ±‚èƒ½æ¥å—æ¥è‡ªé”®ç›˜çš„ç©ºé—´ç”³è¯·åŠé‡Šæ”¾è¯·æ±‚ï¼Œèƒ½æ˜¾ç¤ºåˆ†åŒºåˆ†é…åŠå›æ”¶åçš„å†…å­˜å¸ƒå±€æƒ…å†µã€‚
 
 */

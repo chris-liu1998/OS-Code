@@ -1,5 +1,5 @@
-/*
-Ä£ÄâP¡¢V²Ù×÷ÊµÏÖÍ¬²½»ú¹¹£¬ÇÒÓÃP¡¢V²Ù×÷½â¾öÉú²úÕß¡ªÏû·ÑÕßÎÊÌâ¡£
+ï»¿/*
+æ¨¡æ‹ŸPã€Væ“ä½œå®ç°åŒæ­¥æœºæ„ï¼Œä¸”ç”¨Pã€Væ“ä½œè§£å†³ç”Ÿäº§è€…â€”æ¶ˆè´¹è€…é—®é¢˜ã€‚
 */
 
 #include<iostream>
@@ -26,48 +26,48 @@ int i, j, m;
 char p_array[10];
 char c, x;
 
-int p(int s)//P²Ù×÷Ô­Óï
+int p(int s)//Pæ“ä½œåŸè¯­
 { 
 	s--;
 	if (s < 0) {
-		process_1->state = "×èÈû";
+		process_1->state = "é˜»å¡";
 		process_1->wait_rsn = "s";
 	}
 	else
 	{
-		process_1->state = "¾ÍĞ÷";
+		process_1->state = "å°±ç»ª";
 	}
 	return s;
 }
 
-int v(int s)   //V²Ù×÷Ô­Óï
+int v(int s)   //Væ“ä½œåŸè¯­
 {
 	s++;
 	if (s <= 0) {
-		process_2->state = "¾ÍĞ÷";
+		process_2->state = "å°±ç»ª";
 	}
-	process_1->state = "¾ÍĞ÷";
+	process_1->state = "å°±ç»ª";
 	return s;
 }
 
 char RandomChar()
 {
-	char arr[10] = { 'a','b','c','d','e','f','g','h','i','j' };    //Ëæ»ú²úÆ·
+	char arr[10] = { 'a','b','c','d','e','f','g','h','i','j' };    //éšæœºäº§å“
 	srand((unsigned int)(time(NULL)));
 	return arr[abs(rand() % 10)];
 }
 
 
-void initPCBs()/*³õÊ¼»¯³ÌĞò*/
+void initPCBs()/*åˆå§‹åŒ–ç¨‹åº*/
 {
-	s1 = 10;                //s1±íÊ¾¿Õ»º³åÇøµÄÊıÁ¿
-	s2 = 0;                 //s2±íÊ¾Âú»º³åÇøµÄÊıÁ¿
-	producer.name = "Éú²úÕß";           //¶ÔÉú²úÕß½ø³Ì³õÊ¼»¯
-	producer.state = "¾ÍĞ÷";
+	s1 = 10;                //s1è¡¨ç¤ºç©ºç¼“å†²åŒºçš„æ•°é‡
+	s2 = 0;                 //s2è¡¨ç¤ºæ»¡ç¼“å†²åŒºçš„æ•°é‡
+	producer.name = "ç”Ÿäº§è€…";           //å¯¹ç”Ÿäº§è€…è¿›ç¨‹åˆå§‹åŒ–
+	producer.state = "å°±ç»ª";
 	producer.wait_rsn = "";
 	producer.break_point = 0;
-	consumer.name = "Ïû·ÑÕß";          //¶ÔÏû·ÑÕß½ø³Ì³õÊ¼»¯
-	consumer.state = "¾ÍĞ÷";
+	consumer.name = "æ¶ˆè´¹è€…";          //å¯¹æ¶ˆè´¹è€…è¿›ç¨‹åˆå§‹åŒ–
+	consumer.state = "å°±ç»ª";
 	consumer.wait_rsn = "";
 	consumer.break_point = 0;
 	for (int k = 0; k < 10; k++)
@@ -83,20 +83,20 @@ void gotoL()
 
 void nop()
 {
-	;  //¿Õ²Ù×÷
+	;  //ç©ºæ“ä½œ
 }
 
 void put()
 {
 
-	cout << "°´ÏÂ»Ø³µÒÔ¼ÌĞø";
+	cout << "æŒ‰ä¸‹å›è½¦ä»¥ç»§ç»­";
 	system("pause");
 	cout << endl;
 	Sleep(1000);
 	p_array[in] = RandomChar();
 	in = (in + 1) % 10;
 	cout << "------------------------" << endl;
-	cout << "Éú²úÕß Éú²úÒ»¸ö²úÆ·£º" << p_array[in - 1] << endl;
+	cout << "ç”Ÿäº§è€… ç”Ÿäº§ä¸€ä¸ªäº§å“ï¼š" << p_array[in - 1] << endl;
 	int count = 0;
 	for (m = 0; m < 10; m++)
 	{
@@ -106,7 +106,7 @@ void put()
 		}
 
 	}
-	cout << "»º³å³ØÖĞÓĞ" << count << "¸ö²úÆ·" << endl;
+	cout << "ç¼“å†²æ± ä¸­æœ‰" << count << "ä¸ªäº§å“" << endl;
 	cout << "------------------------" << endl;
 }
 
@@ -115,7 +115,7 @@ void get()
 	Sleep(1000);
 	x = p_array[out];
 	cout << "------------------------" << endl;
-	cout << "Ïû·ÑÕß È¡³öÒ»¸ö²úÆ·£º" << x << endl;
+	cout << "æ¶ˆè´¹è€… å–å‡ºä¸€ä¸ªäº§å“ï¼š" << x << endl;
 	p_array[out] = ' ';
 	out = (out + 1) % 10;
 	int count = 0;
@@ -127,13 +127,13 @@ void get()
 		}
 
 	}
-	cout << "»º³å³ØÖĞÓĞ" << count << "¸ö²úÆ·" << endl;
+	cout << "ç¼“å†²æ± ä¸­æœ‰" << count << "ä¸ªäº§å“" << endl;
 	cout << "------------------------" << endl;
 }
 
-void showPCBs() //ÏÔÊ¾µ±Ç°½ø³Ì
+void showPCBs() //æ˜¾ç¤ºå½“å‰è¿›ç¨‹
 {
-	cout << "½ø³ÌÃû" << "\t" << "×´Ì¬" << "\t" << "Ô­Òò" << "\t" << "¶Ïµã" << endl;
+	cout << "è¿›ç¨‹å" << "\t" << "çŠ¶æ€" << "\t" << "åŸå› " << "\t" << "æ–­ç‚¹" << endl;
 	cout << process_1->name << "\t";
 	cout << process_1->state << "\t";
 	cout << process_1->wait_rsn << "\t";
@@ -141,7 +141,7 @@ void showPCBs() //ÏÔÊ¾µ±Ç°½ø³Ì
 	cout << endl;
 }
 
-void putInPA()           //´æ·ÅÉú²úÕß³ÌĞòÖĞµÄÒ»ÌõÄ£ÄâÖ¸ÁîÖ´ĞĞµÄÈë¿ÚµØÖ·
+void putInPA()           //å­˜æ”¾ç”Ÿäº§è€…ç¨‹åºä¸­çš„ä¸€æ¡æ¨¡æ‹ŸæŒ‡ä»¤æ‰§è¡Œçš„å…¥å£åœ°å€
 {
 	for (i = 0; i <= 3; i++)
 	{
@@ -149,7 +149,7 @@ void putInPA()           //´æ·ÅÉú²úÕß³ÌĞòÖĞµÄÒ»ÌõÄ£ÄâÖ¸ÁîÖ´ĞĞµÄÈë¿ÚµØÖ·
 	}
 }
 
-void putInSA()               //´æ·ÅÏû·ÑÕß³ÌĞòÖĞµÄÒ»ÌõÄ£ÄâÖ¸ÁîÖ´ĞĞµÄÈë¿ÚµØÖ·
+void putInSA()               //å­˜æ”¾æ¶ˆè´¹è€…ç¨‹åºä¸­çš„ä¸€æ¡æ¨¡æ‹ŸæŒ‡ä»¤æ‰§è¡Œçš„å…¥å£åœ°å€
 {
 	for (i = 0; i <= 3; i++)
 	{
@@ -158,13 +158,13 @@ void putInSA()               //´æ·ÅÏû·ÑÕß³ÌĞòÖĞµÄÒ»ÌõÄ£ÄâÖ¸ÁîÖ´ĞĞµÄÈë¿ÚµØÖ·
 }
 
 void runPCBs() {
-	while ((producer.state == "¾ÍĞ÷") || (consumer.state == "¾ÍĞ÷"))
+	while ((producer.state == "å°±ç»ª") || (consumer.state == "å°±ç»ª"))
 	{
-		x = rand();    //xËæ»ú»ñµÃÒ»¸öÊı
-		x = x % 2;   //¶ÔxÈ¡Óà
-		if (x == 0)      //ÈôxµÈÓÚÁã£¬ÔòÖ´ĞĞÉú²úÕß½ø³Ì£¬·´Ö®Ö´ĞĞÏû·ÑÕß½ø³Ì
+		x = rand();    //xéšæœºè·å¾—ä¸€ä¸ªæ•°
+		x = x % 2;   //å¯¹xå–ä½™
+		if (x == 0)      //è‹¥xç­‰äºé›¶ï¼Œåˆ™æ‰§è¡Œç”Ÿäº§è€…è¿›ç¨‹ï¼Œåä¹‹æ‰§è¡Œæ¶ˆè´¹è€…è¿›ç¨‹
 		{
-			process_1 = &producer;   //process_1±íÊ¾ÏÖĞĞ½ø³Ì£¬½«ÏÖĞĞ½ø³ÌÖÃÎªÉú²úÕß½ø³Ì
+			process_1 = &producer;   //process_1è¡¨ç¤ºç°è¡Œè¿›ç¨‹ï¼Œå°†ç°è¡Œè¿›ç¨‹ç½®ä¸ºç”Ÿäº§è€…è¿›ç¨‹
 			process_2 = &consumer;
 		}
 		else
@@ -173,8 +173,8 @@ void runPCBs() {
 			process_2 = &producer;
 		}
 		PC = process_1->break_point;
-		i = PC;                     //´ËÊ±°ÑPCµÄÖµ¸³¸øi
-		if ((process_1->name == "Éú²úÕß") && (process_1->state == "¾ÍĞ÷"))
+		i = PC;                     //æ­¤æ—¶æŠŠPCçš„å€¼èµ‹ç»™i
+		if ((process_1->name == "ç”Ÿäº§è€…") && (process_1->state == "å°±ç»ª"))
 		{
 
 			j = PA[i];
@@ -188,7 +188,7 @@ void runPCBs() {
 				break;
 			case 1:
 				put();
-				process_1->state = "¾ÍĞ÷";
+				process_1->state = "å°±ç»ª";
 				process_1->wait_rsn = "";
 				process_1->break_point = PC;
 				break;
@@ -198,16 +198,16 @@ void runPCBs() {
 				break;
 			case 3:
 				gotoL(); 
-				process_1->state = "¾ÍĞ÷";
+				process_1->state = "å°±ç»ª";
 				process_1->wait_rsn = "";
 				process_1->break_point = PC;
 				break;
 			}
 			showPCBs();
 		}
-		else if ((process_1->name == "Ïû·ÑÕß") && (process_1->state == "¾ÍĞ÷"))//Ö´ĞĞÏû·ÑÕß½ø³ÌÇÒ¸Ã½ø³Ì´¦ÓÚ¾ÍĞ÷×´Ì¬
+		else if ((process_1->name == "æ¶ˆè´¹è€…") && (process_1->state == "å°±ç»ª"))//æ‰§è¡Œæ¶ˆè´¹è€…è¿›ç¨‹ä¸”è¯¥è¿›ç¨‹å¤„äºå°±ç»ªçŠ¶æ€
 		{
-			process_1->state = "¾ÍĞ÷";
+			process_1->state = "å°±ç»ª";
 			process_1->wait_rsn = "";
 			j = SA[i];
 			PC = i + 1;
@@ -216,7 +216,7 @@ void runPCBs() {
 			case 0:
 				s2 = p(s2);
 				process_1->break_point = PC;
-				break;               //ÉêÇë×ÊÔ´£¬ÈôÃ»ÓĞÉêÇëµ½ÔòÌø×ª
+				break;               //ç”³è¯·èµ„æºï¼Œè‹¥æ²¡æœ‰ç”³è¯·åˆ°åˆ™è·³è½¬
 			case 1:
 				get();
 				process_1->break_point = PC;
@@ -227,7 +227,7 @@ void runPCBs() {
 				break;
 			case 3:
 				gotoL(); 
-				process_1->state = "¾ÍĞ÷";
+				process_1->state = "å°±ç»ª";
 				process_1->break_point = PC;
 				break;
 			}
@@ -238,7 +238,7 @@ void runPCBs() {
 
 }
 
-int main() {     //Ö÷³ÌĞò
+int main() {     //ä¸»ç¨‹åº
 	initPCBs();
 	putInPA();
 	putInSA();

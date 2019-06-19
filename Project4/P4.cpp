@@ -1,4 +1,4 @@
-//VSÎÞ·¨±àÒë£¬½öÔÚUbuntuÖÐ±àÒëÔËÐÐ£¡£¡£¡
+ï»¿//VSæ— æ³•ç¼–è¯‘ï¼Œä»…åœ¨Ubuntuä¸­ç¼–è¯‘è¿è¡Œï¼ï¼ï¼
 
 //#include<iostream>
 //#include<unistd.h>
